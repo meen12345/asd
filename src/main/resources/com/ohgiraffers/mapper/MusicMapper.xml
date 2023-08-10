@@ -17,4 +17,30 @@
              , CATEGORY_CODE
         FROM TBL_MUSIC
     </select>
-</mapper>
+    <!-- abc.put("singer", value);
+            abc.put("name", value2);
+            abc.put("category", no); -->
+    <select id="searchMusic" resultMap="music" parameterType="hashmap">
+        SELECT
+        MUSIC_CODE,
+        MUSIC_NAME,
+        MUSIC_SINGER,
+        CATEGORY_CODE
+        FROM TBL_MUSIC
+        WHERE PLAYABLE_STATUS = 'Y'
+        <if test="singer != null">
+        AND MUSIC_SINGER LIKE '%'|| #{singer} ||'%'
+        </if>
+        <if test="name != null">
+            AND MUSIC_NAME LIKE '%'|| #{name} ||'%'
+        </if>
+    </select>
+
+
+    <insert id="registMusic" parameterType="com.ohgiraffers.common.MusicDTO">
+        INSERT INTO TBL_MUSIC
+        (MUSIC_CODE, MUSIC_NAME, MUSIC_SINGER, CATEGORY_CODE, PLAYABLE_STATUS)
+        VALUES
+        (SEQ_MUSIC_CODE.NEXTVAL, #{name},#{singer},#{categoryCode},#{playAbleStatus})
+    </insert>
+    </mapper>

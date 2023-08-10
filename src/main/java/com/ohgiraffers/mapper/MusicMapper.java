@@ -9,4 +9,6 @@ public interface MusicMapper {
     List<MusicDTO> selectAllMusic();
 
     List<MusicDTO> searchMusic(Map<String, Object> criteria);
+
+    int registMusic(MusicDTO music);
 }

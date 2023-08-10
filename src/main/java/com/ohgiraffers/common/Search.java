@@ -3,7 +3,6 @@ package com.ohgiraffers.common;
 public class Search {
     private String conditon;
     private String value;
-
     private String value2;
 
     private int categoryValue;

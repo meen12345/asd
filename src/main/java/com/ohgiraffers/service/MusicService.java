@@ -18,20 +18,29 @@ public class MusicService {
 
         List<MusicDTO> musicList = mapper.selectAllMusic();
 
-        if (musicList != null){
-            sqlSession.commit();
-        }else {
-            sqlSession.rollback();
-        }
 
         return musicList;
     }
     public  List<MusicDTO> searchMusic(Map<String, Object> criteria) {
         SqlSession sqlSession = getSqlSession();
         mapper = sqlSession.getMapper(MusicMapper.class);
+
         List<MusicDTO> musicList = mapper.searchMusic(criteria);
-
-
         return musicList;
+    }
+
+    public int registMusic(MusicDTO music) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MusicMapper.class);
+
+        int result = mapper.registMusic(music);
+
+        if (result > 0){
+            sqlSession.commit();
+        }else {
+            sqlSession.rollback();
+        }
+
+        return result;
     }
 }

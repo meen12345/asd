@@ -32,6 +32,7 @@ public class Application {
                 case 2:
                     musicController.SearchMusic(SearchSubMenu());
                     break;
+                case 3 : musicController.registMusic(inputRegistMusic());
                 case 9:
                     return;
             }
@@ -41,11 +42,12 @@ public class Application {
 
     }
 
+
     private static Map<String, Object> SearchSubMenu() {
         Search search = new Search();
         MusicController musicController = new MusicController();
         Scanner sc = new Scanner(System.in);
-        System.out.print("검색 조건을 입력하세요(singer, name, category, all) : ");
+        System.out.print("검색 조건을 입력하세요(singer, musicName, all) : ");
         String condition = sc.nextLine();
         Map<String, Object> abc = new HashMap<>();
 
@@ -53,7 +55,7 @@ public class Application {
             System.out.print("검색할 가수 명을 입력하세요 : ");
             String value = sc.nextLine();
             abc.put("singer", value);
-        } else if (condition.equals("name")) {
+        } else if (condition.equals("musicName")) {
             System.out.print("검색할 노래 제목을 입력하세요 : ");
             String value = sc.nextLine();
             abc.put("name", value);
@@ -66,13 +68,31 @@ public class Application {
             String value = sc.nextLine();
             System.out.print("검색할 노래 제목을 입력하세요 : ");
             String value2 = sc.nextLine();
-            System.out.print("검색할 카테고리를 입력하세요 : ");
-            int no = sc.nextInt();
             abc.put("singer", value);
             abc.put("name", value2);
-            abc.put("category", no);
         }
         return abc;
+    }
+
+    private static MusicDTO inputRegistMusic() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("추가할 노래 제목 : ");
+        String musicName = sc.nextLine();
+        System.out.println("추가할 노래 가수명 :");
+        String singer = sc.nextLine();
+        System.out.println("추가할 노래 카테고리코드 : ");
+        int categoryCode = sc.nextInt();
+        sc.nextLine();
+        System.out.println("재생 가능 여부(Y/N) : ");
+        String playable = sc.nextLine();
+
+        MusicDTO music = new MusicDTO();
+        music.setName(musicName);
+        music.setPlayAbleStatus(playable);
+        music.setSinger(singer);
+        music.setCategoryCode(categoryCode);
+
+        return music;
     }
 
 
