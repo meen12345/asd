@@ -12,7 +12,9 @@ public class PrintResult {
     public void errorMessage(String error) {
         switch (error) {
             case "selectAllMenu":
-                System.out.println("메뉴목록 조회 실패");
+                System.out.println("목록 조회 실패");
+            case "searchMusic":
+                System.out.println("목록 검색 실패");
         }
 
     }

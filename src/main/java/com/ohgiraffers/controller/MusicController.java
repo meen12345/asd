@@ -22,8 +22,14 @@ public class MusicController {
         }
     }
 
-    public void SearchMusic(Map<String, Object> stringObjectMap) {
+    public void SearchMusic(Map<String, Object> criteria) {
 
+        List<MusicDTO> musicList = musicService.searchMusic(criteria);
 
+        if (musicList != null){
+            printResult.printAllMusic(musicList);
+        }else {
+            printResult.errorMessage("searchMusic");
+        }
     }
 }

@@ -5,6 +5,7 @@ import com.ohgiraffers.mapper.MusicMapper;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.ohgiraffers.common.Template.getSqlSession;
 
@@ -22,6 +23,14 @@ public class MusicService {
         }else {
             sqlSession.rollback();
         }
+
+        return musicList;
+    }
+    public  List<MusicDTO> searchMusic(Map<String, Object> criteria) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MusicMapper.class);
+        List<MusicDTO> musicList = mapper.searchMusic(criteria);
+
 
         return musicList;
     }
