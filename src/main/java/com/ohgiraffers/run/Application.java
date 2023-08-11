@@ -4,9 +4,7 @@ import com.ohgiraffers.common.MusicDTO;
 import com.ohgiraffers.common.Search;
 import com.ohgiraffers.controller.MusicController;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Application {
 
@@ -20,6 +18,7 @@ public class Application {
             System.out.println("3. 노래 추가");
             System.out.println("4. 노래 수정");
             System.out.println("5. 노래 삭제");
+            System.out.println("6. 노래 추천");
             System.out.println("9. 프로그램 종료");
             System.out.print("메뉴 선택 : ");
             int no = sc.nextInt();
@@ -40,6 +39,9 @@ public class Application {
                 case 5 :
                     musicController.deleteMusic(inputMusicCode());
                     break;
+                case 6 :
+                    musicController.randomMusic(inputRandom());
+
                 case 9:
                     return;
             }
@@ -130,6 +132,18 @@ public class Application {
         int no = sc.nextInt();
 
         return no;
+    }
+
+    private static List<Integer> inputRandom() {
+        Set<Integer> list = new HashSet<>();
+
+        for(int i =0 ; i<=5 ; i++){
+            int no = ((int)(Math.random()*10))+1;
+            list.add(no);
+        }
+        List<Integer> list1 = new ArrayList<>(list);
+
+        return list1;
     }
 
 

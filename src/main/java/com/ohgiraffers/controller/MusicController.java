@@ -65,6 +65,5 @@ public class MusicController {
         }else {
             printResult.errorMessage("delete");
         }
-
     }
 }
