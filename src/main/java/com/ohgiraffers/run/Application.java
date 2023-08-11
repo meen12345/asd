@@ -28,7 +28,7 @@ public class Application {
                     musicController.selectAllMusic();
                     break;
                 case 2:
-                    musicController.SearchMusic(SearchSubMenu());
+                    SearchSubMenu();
                     break;
                 case 3:
                     musicController.registMusic(inputRegistMusic());
@@ -41,7 +41,7 @@ public class Application {
                     break;
                 case 6 :
                     musicController.randomMusic(inputRandom());
-
+                break;
                 case 9:
                     return;
             }
@@ -51,10 +51,44 @@ public class Application {
 
     }
 
+    private static void SearchSubMenu() {
+        MusicController musicController = new MusicController();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("검색 조건을 선택하세요");
+        System.out.println("1. 가수이름, 노래제목으로 검색");
+        System.out.println("2. 장르별 검색");
+        System.out.print("입력 : ");
+        int no = sc.nextInt();
+
+        switch (no){
+            case 1  :
+                musicController.SearchMusic(SearchSubMenu1());
+                break;
+            case 2:
+                musicController.CategoryMusic(inputCategoryCode());
+                break;
+        }
 
 
+    }
 
-    private static Map<String, Object> SearchSubMenu() {
+    private static int inputCategoryCode() {
+        MusicController musicController = new MusicController();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("원하는 장르  선택");
+        System.out.println("1. k-pop ");
+        System.out.println("2. 발라드 ");
+        System.out.println("3. 힙합 ");
+        System.out.println("4. 락 ");
+        System.out.println("5. 알앤비 ");
+
+        int no = sc.nextInt();
+
+        return no;
+    }
+
+
+    private static Map<String, Object> SearchSubMenu1() {
         Search search = new Search();
         MusicController musicController = new MusicController();
         Scanner sc = new Scanner(System.in);
@@ -138,7 +172,7 @@ public class Application {
         Set<Integer> list = new HashSet<>();
 
         for(int i =0 ; i<=5 ; i++){
-            int no = ((int)(Math.random()*10))+1;
+            int no = ((int)(Math.random()*14))+1;
             list.add(no);
         }
         List<Integer> list1 = new ArrayList<>(list);

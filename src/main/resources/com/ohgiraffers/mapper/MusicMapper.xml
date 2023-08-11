@@ -11,10 +11,10 @@
     </resultMap>
     <select id="selectAllMusic" resultMap="music">
         SELECT
-               MUSIC_CODE
-             , MUSIC_NAME
-             , MUSIC_SINGER
-             , CATEGORY_CODE
+        MUSIC_CODE
+        , MUSIC_NAME
+        , MUSIC_SINGER
+        , CATEGORY_CODE
         FROM TBL_MUSIC
         ORDER BY MUSIC_CODE
     </select>
@@ -30,7 +30,7 @@
         FROM TBL_MUSIC
         WHERE PLAYABLE_STATUS = 'Y'
         <if test="singer != null">
-        AND MUSIC_SINGER LIKE '%'|| #{singer} ||'%'
+            AND MUSIC_SINGER LIKE '%'|| #{singer} ||'%'
         </if>
         <if test="name != null">
             AND MUSIC_NAME LIKE '%'|| #{name} ||'%'
@@ -44,7 +44,7 @@
         VALUES
         (SEQ_MUSIC_CODE.NEXTVAL, #{name},#{singer},#{categoryCode},#{playAbleStatus})
     </insert>
-    
+
     <update id="modifyMusic" parameterType="com.ohgiraffers.common.MusicDTO">
         UPDATE TBL_MUSIC
         <set>
@@ -69,5 +69,45 @@
         WHERE MUSIC_CODE = #{no}
     </delete>
 
+    <select id="randomList" parameterType="hashmap" resultMap="music">
+        SELECT
+        MUSIC_CODE,
+        MUSIC_NAME,
+        MUSIC_SINGER,
+        CATEGORY_CODE
+        FROM TBL_MUSIC
+        WHERE PLAYABLE_STATUS = 'Y'
+        AND MUSIC_CODE IN
+        <foreach collection="random" item="randomNum" open="(" separator="," close=")">
+            #{randomNum}
+        </foreach>
 
-    </mapper>
+
+    </select>
+
+
+
+    <resultMap id="category123" type="com.ohgiraffers.common.CategoryDTO">
+        <id property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <collection property="musicdto" ofType="com.ohgiraffers.common.MusicDTO">
+            <id property="code" column="MUSIC_CODE"/>
+            <result property="name" column="MUSIC_NAME"/>
+            <result property="singer" column="MUSIC_SINGER"/>
+            <result property="playAbleStatus" column="PLAYABLE_STATUS"/>
+        </collection>
+    </resultMap>
+
+    <select id="MusicByCategory" parameterType="hashmap" resultMap="category123">
+        SELECT
+        A.CATEGORY_CODE,
+        A.CATEGORY_NAME,
+        B.MUSIC_CODE,
+        B.MUSIC_NAME,
+        B.MUSIC_SINGER
+        FROM TBL_CATEGORY A
+        LEFT JOIN TBL_MUSIC B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+        WHERE A.CATEGORY_CODE = #{category}
+    </select>
+
+</mapper>

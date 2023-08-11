@@ -1,5 +1,6 @@
 package com.ohgiraffers.run;
 
+import com.ohgiraffers.common.CategoryDTO;
 import com.ohgiraffers.common.MusicDTO;
 
 import java.util.List;
@@ -7,6 +8,9 @@ import java.util.List;
 public class PrintResult {
     public void printAllMusic(List<MusicDTO> musicList) {
         musicList.forEach(System.out::println);
+    }
+    public void printMusicByCategory(List<CategoryDTO> list){
+        list.forEach(System.out::println);
     }
 
     public void errorMessage(String error) {

@@ -1,13 +1,13 @@
 package com.ohgiraffers.controller;
 
+import com.ohgiraffers.common.CategoryDTO;
 import com.ohgiraffers.common.MusicDTO;
 import com.ohgiraffers.run.PrintResult;
 import com.ohgiraffers.service.MusicService;
+import jdk.jfr.Category;
 import org.apache.ibatis.session.SqlSession;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class MusicController {
     MusicService musicService = new MusicService();
@@ -16,9 +16,9 @@ public class MusicController {
     public void selectAllMusic() {
         List<MusicDTO> musicList = musicService.selectAllMusic();
 
-        if (musicList != null){
+        if (musicList != null) {
             printResult.printAllMusic(musicList);
-        }else {
+        } else {
             printResult.errorMessage("selectAllMenu");
         }
 
@@ -28,9 +28,9 @@ public class MusicController {
 
         List<MusicDTO> musicList = musicService.searchMusic(criteria);
 
-        if (musicList != null){
+        if (musicList != null) {
             printResult.printAllMusic(musicList);
-        }else {
+        } else {
             printResult.errorMessage("searchMusic");
         }
     }
@@ -38,9 +38,9 @@ public class MusicController {
     public void registMusic(MusicDTO music) {
         int result = musicService.registMusic(music);
 
-        if(result > 0){
+        if (result > 0) {
             printResult.successMessage("registMusic");
-        }else {
+        } else {
             printResult.errorMessage("registMusic");
         }
 
@@ -49,9 +49,9 @@ public class MusicController {
     public void modifyMusic(MusicDTO music) {
         int result = musicService.modifyMusic(music);
 
-        if(result > 0 ){
+        if (result > 0) {
             printResult.successMessage("modify");
-        }else {
+        } else {
             printResult.errorMessage("modify");
         }
 
@@ -60,10 +60,37 @@ public class MusicController {
     public void deleteMusic(int no) {
         int result = musicService.deleteMusic(no);
 
-        if(result > 0 ){
+        if (result > 0) {
             printResult.successMessage("delete");
-        }else {
+        } else {
             printResult.errorMessage("delete");
         }
+    }
+
+    public void randomMusic(List<Integer> list) {
+        HashMap<String, List<Integer>> randomList = new HashMap<>();
+        randomList.put("random", list);
+
+        List<MusicDTO> musicList = musicService.randomMusic(randomList);
+
+        if (musicList != null) {
+            printResult.printAllMusic(musicList);
+        } else {
+            printResult.errorMessage("searchMusic");
+        }
+    }
+
+    public void CategoryMusic(int no) {
+        HashMap<String, Integer> categoryCode = new HashMap<>();
+        categoryCode.put("category", no);
+
+        List<CategoryDTO> list = musicService.MusicByCategoryCode(categoryCode);
+
+        if(list != null){
+            printResult.printMusicByCategory(list);
+        } else {
+            printResult.errorMessage("searchMusic");
+        }
+
     }
 }
