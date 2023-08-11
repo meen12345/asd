@@ -11,4 +11,9 @@ public interface MusicMapper {
     List<MusicDTO> searchMusic(Map<String, Object> criteria);
 
     int registMusic(MusicDTO music);
+
+
+    int modifyMusic(MusicDTO music);
+
+    int deleteMusic(int no);
 }

@@ -14,7 +14,6 @@ public class Application {
         Scanner sc = new Scanner(System.in);
         MusicController musicController = new MusicController();
         do {
-
             System.out.println("=======메뉴 선택=========");
             System.out.println("1. 전체 노래 조회");
             System.out.println("2. 노래 검색");
@@ -32,7 +31,15 @@ public class Application {
                 case 2:
                     musicController.SearchMusic(SearchSubMenu());
                     break;
-                case 3 : musicController.registMusic(inputRegistMusic());
+                case 3:
+                    musicController.registMusic(inputRegistMusic());
+                    break;
+                case 4:
+                    musicController.modifyMusic(inputModifyMusic());
+                    break;
+                case 5 :
+                    musicController.deleteMusic(inputMusicCode());
+                    break;
                 case 9:
                     return;
             }
@@ -41,6 +48,8 @@ public class Application {
 
 
     }
+
+
 
 
     private static Map<String, Object> SearchSubMenu() {
@@ -92,7 +101,35 @@ public class Application {
         music.setSinger(singer);
         music.setCategoryCode(categoryCode);
 
+
         return music;
+    }
+
+
+    private static MusicDTO inputModifyMusic() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("수정할 노래 코드 입력 : ");
+        int musicCode = sc.nextInt();
+        sc.nextLine();
+        System.out.println("수정할 노래 제목 입력 : ");
+        String musicName = sc.nextLine();
+        System.out.println("수정할 노래 가수이름 입력 : ");
+        String singerName = sc.nextLine();
+        System.out.println("수정할 노래 카테고리 코드 입력 : ");
+        int categoryCode = sc.nextInt();
+        sc.nextLine();
+        System.out.println("재생 가능 여부(Y/N) : ");
+        String playable = sc.nextLine();
+
+        return new MusicDTO(musicCode,musicName,singerName,categoryCode,playable);
+    }
+
+    private static int inputMusicCode() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("삭제할 노래 코드 입력 : ");
+        int no = sc.nextInt();
+
+        return no;
     }
 
 

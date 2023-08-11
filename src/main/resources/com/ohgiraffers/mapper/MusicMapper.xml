@@ -16,6 +16,7 @@
              , MUSIC_SINGER
              , CATEGORY_CODE
         FROM TBL_MUSIC
+        ORDER BY MUSIC_CODE
     </select>
     <!-- abc.put("singer", value);
             abc.put("name", value2);
@@ -43,4 +44,30 @@
         VALUES
         (SEQ_MUSIC_CODE.NEXTVAL, #{name},#{singer},#{categoryCode},#{playAbleStatus})
     </insert>
+    
+    <update id="modifyMusic" parameterType="com.ohgiraffers.common.MusicDTO">
+        UPDATE TBL_MUSIC
+        <set>
+            <if test="name != null and name != ''">
+                MUSIC_NAME = #{name}
+            </if>
+            <if test="singer != null and singer != ''">
+                , MUSIC_SINGER = #{singer}
+            </if>
+            <if test="categoryCode != null and categoryCode gt 0 ">
+                , CATEGORY_CODE = #{categoryCode}
+            </if>
+            <if test="playAbleStatus != null and playAbleStatus != ''">
+                , PLAYABLE_STATUS = #{playAbleStatus}
+            </if>
+        </set>
+        WHERE MUSIC_CODE = #{code}
+    </update>
+
+    <delete id="deleteMusic" parameterType="_int">
+        DELETE TBL_MUSIC
+        WHERE MUSIC_CODE = #{no}
+    </delete>
+
+
     </mapper>

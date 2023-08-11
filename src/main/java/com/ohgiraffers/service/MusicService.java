@@ -43,4 +43,31 @@ public class MusicService {
 
         return result;
     }
+
+    public int modifyMusic(MusicDTO music) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MusicMapper.class);
+        int result = mapper.modifyMusic(music);
+
+        if (result > 0){
+            sqlSession.commit();
+        }else {
+            sqlSession.rollback();
+        }
+        return result;
+    }
+
+    public int deleteMusic(int no) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MusicMapper.class);
+        int result = mapper.deleteMusic(no);
+
+        if (result > 0){
+            sqlSession.commit();
+        }else {
+            sqlSession.rollback();
+        }
+        return result;
+
+    }
 }

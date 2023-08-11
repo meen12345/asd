@@ -45,4 +45,26 @@ public class MusicController {
         }
 
     }
+
+    public void modifyMusic(MusicDTO music) {
+        int result = musicService.modifyMusic(music);
+
+        if(result > 0 ){
+            printResult.successMessage("modify");
+        }else {
+            printResult.errorMessage("modify");
+        }
+
+    }
+
+    public void deleteMusic(int no) {
+        int result = musicService.deleteMusic(no);
+
+        if(result > 0 ){
+            printResult.successMessage("delete");
+        }else {
+            printResult.errorMessage("delete");
+        }
+
+    }
 }
