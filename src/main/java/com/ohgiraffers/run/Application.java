@@ -89,7 +89,6 @@ public class Application {
 
 
     private static Map<String, Object> SearchSubMenu1() {
-        Search search = new Search();
         MusicController musicController = new MusicController();
         Scanner sc = new Scanner(System.in);
         System.out.print("검색 조건을 입력하세요(singer, musicName, all) : ");
@@ -108,6 +107,7 @@ public class Application {
             System.out.print("검색할 카테고리를 입력하세요 : ");
             int no = sc.nextInt();
             abc.put("category", no);
+
         } else if (condition.equals("all")) {
             System.out.print("검색할 가수 명을 입력하세요 : ");
             String value = sc.nextLine();
@@ -116,6 +116,7 @@ public class Application {
             abc.put("singer", value);
             abc.put("name", value2);
         }
+
         return abc;
     }
 

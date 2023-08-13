@@ -9,6 +9,7 @@
         <result property="singer" column="MUSIC_SINGER"/>
         <result property="categoryCode" column="CATEGORY_CODE"/>
     </resultMap>
+
     <select id="selectAllMusic" resultMap="music">
         SELECT
         MUSIC_CODE
@@ -84,8 +85,6 @@
 
 
     </select>
-
-
 
     <resultMap id="category123" type="com.ohgiraffers.common.CategoryDTO">
         <id property="categoryCode" column="CATEGORY_CODE"/>
